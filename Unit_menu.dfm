@@ -11,6 +11,8 @@ object Form_menu: TForm_menu
   Font.Name = 'MS Sans Serif'
   Font.Style = []
   OldCreateOrder = False
+  OnClose = FormClose
+  OnShow = FormShow
   PixelsPerInch = 96
   TextHeight = 13
   object btn_empresas: TBitBtn
@@ -20,6 +22,7 @@ object Form_menu: TForm_menu
     Height = 25
     Caption = 'Empresas'
     TabOrder = 0
+    OnClick = btn_empresasClick
   end
   object btn_motoristas: TBitBtn
     Left = 72
@@ -28,6 +31,7 @@ object Form_menu: TForm_menu
     Height = 25
     Caption = 'Motoristas'
     TabOrder = 1
+    OnClick = btn_motoristasClick
   end
   object btn_onibus: TBitBtn
     Left = 72
@@ -47,7 +51,6 @@ object Form_menu: TForm_menu
     OnClick = btn_fecharClick
   end
   object ConexaoBD: TADOConnection
-    Connected = True
     ConnectionString = 
       'Provider=SQLOLEDB.1;Password=1devsecnpi;Persist Security Info=Tr' +
       'ue;User ID=sa;Initial Catalog=Rodoviaria;Data Source=JEFF\SQLEXP' +

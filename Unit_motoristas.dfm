@@ -1,9 +1,9 @@
-object Form_empresas: TForm_empresas
-  Left = 357
+object Form_motoristas: TForm_motoristas
+  Left = 718
   Top = 190
   Width = 356
   Height = 269
-  Caption = 'Empresas'
+  Caption = 'Motoristas'
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -15,39 +15,29 @@ object Form_empresas: TForm_empresas
   OnShow = FormShow
   PixelsPerInch = 96
   TextHeight = 13
-  object btn_fechar: TBitBtn
-    Left = 112
-    Top = 176
-    Width = 137
-    Height = 25
-    Caption = 'Fechar'
-    TabOrder = 0
-    OnClick = btn_fecharClick
-  end
-  object dbgrid_empresas: TDBGrid
-    Left = 16
+  object dbgrid_motoristas: TDBGrid
+    Left = 8
     Top = 40
     Width = 320
     Height = 120
-    DataSource = ds_empresas
-    TabOrder = 1
+    DataSource = ds_motoristas
+    TabOrder = 0
     TitleFont.Charset = DEFAULT_CHARSET
     TitleFont.Color = clWindowText
     TitleFont.Height = -11
     TitleFont.Name = 'MS Sans Serif'
     TitleFont.Style = []
   end
-  object adoquery_empresas: TADOQuery
+  object adoquery_motoristas: TADOQuery
     Connection = Form_menu.ConexaoBD
-    CursorType = ctStatic
     Parameters = <>
     SQL.Strings = (
       'select * '
-      '   from empresas'
+      '  from motoristas'
       ' order by nome')
   end
-  object ds_empresas: TDataSource
-    DataSet = adoquery_empresas
+  object ds_motoristas: TDataSource
+    DataSet = adoquery_motoristas
     Left = 32
   end
 end
