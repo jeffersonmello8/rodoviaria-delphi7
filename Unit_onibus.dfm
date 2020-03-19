@@ -1,9 +1,9 @@
-object Form_motoristas: TForm_motoristas
-  Left = 367
-  Top = 145
-  Width = 479
-  Height = 407
-  Caption = 'Motoristas'
+object Form_onibus: TForm_onibus
+  Left = 785
+  Top = 154
+  Width = 658
+  Height = 398
+  Caption = #212'nibus'
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -16,11 +16,11 @@ object Form_motoristas: TForm_motoristas
   PixelsPerInch = 96
   TextHeight = 13
   object btn_fechar: TSpeedButton
-    Left = 168
+    Left = 248
     Top = 320
     Width = 145
     Height = 33
-    Caption = 'Fechar'
+    Caption = 'Fechar '
     Glyph.Data = {
       E6040000424DE604000000000000360000002800000014000000140000000100
       180000000000B004000074120000741200000000000000000000FFFFFFFFFFFF
@@ -64,58 +64,36 @@ object Form_motoristas: TForm_motoristas
       FFFFFFFFFFFFFFFFFFFF}
     OnClick = btn_fecharClick
   end
-  object dbgrid_motoristas: TDBGrid
-    Left = 24
+  object dbgrid_onibus: TDBGrid
+    Left = 16
     Top = 40
-    Width = 433
-    Height = 249
-    DataSource = ds_motoristas
+    Width = 617
+    Height = 265
+    DataSource = ds_onibus
     TabOrder = 0
     TitleFont.Charset = DEFAULT_CHARSET
     TitleFont.Color = clWindowText
     TitleFont.Height = -11
     TitleFont.Name = 'MS Sans Serif'
     TitleFont.Style = []
-    Columns = <
-      item
-        Expanded = False
-        FieldName = 'nome'
-        Width = 138
-        Visible = True
-      end
-      item
-        Expanded = False
-        FieldName = 'idade'
-        Visible = True
-      end
-      item
-        Expanded = False
-        FieldName = 'sexo'
-        Width = 42
-        Visible = True
-      end
-      item
-        Expanded = False
-        FieldName = 'salario'
-        Width = 116
-        Visible = True
-      end>
   end
-  object adoquery_motoristas: TADOQuery
+  object ds_onibus: TDataSource
+    DataSet = adoquery_onibus
+    Left = 32
+  end
+  object adoquery_onibus: TADOQuery
     Connection = Form_menu.ConexaoBD
     CursorType = ctStatic
     Parameters = <>
     SQL.Strings = (
-      'select num_motorista as [C'#243'digo],'
-      '       nome as [Nome],'
-      #9'idade as [Idade],'
-      #9'sexo as [Sexo],'
-      #9'salario as [Salario] '
-      '  from motoristas '
-      ' order by nome')
-  end
-  object ds_motoristas: TDataSource
-    DataSet = adoquery_motoristas
-    Left = 32
+      'select o.num_onibus as ['#212'nibus],'
+      '       e.nome as [Empresa],'
+      #9'm.nome as [Motorista],'
+      #9'o.trajeto as [Trajeto] '
+      '  from onibus o'
+      ' inner join empresas e'
+      '    on o.cod_empresa = e.cod_empresa'
+      ' inner join motoristas m'
+      '    on o.num_motorista = o.num_motorista')
   end
 end

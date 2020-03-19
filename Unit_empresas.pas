@@ -8,10 +8,10 @@ uses
 
 type
   TForm_empresas = class(TForm)
-    btn_fechar: TBitBtn;
     adoquery_empresas: TADOQuery;
     dbgrid_empresas: TDBGrid;
     ds_empresas: TDataSource;
+    btn_fechar: TSpeedButton;
     procedure btn_fecharClick(Sender: TObject);
     procedure FormShow(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
@@ -32,7 +32,7 @@ uses Unit_menu;
 
 procedure TForm_empresas.btn_fecharClick(Sender: TObject);
 begin
-  close;
+  Close;
 end;
 
 procedure TForm_empresas.FormShow(Sender: TObject);

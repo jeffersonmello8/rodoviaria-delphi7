@@ -1,16 +1,16 @@
-unit Unit_motoristas;
+unit Unit_onibus;
 
 interface
 
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
-  Dialogs, Grids, DBGrids, DB, ADODB, Buttons;
+  Dialogs, DB, ADODB, Grids, DBGrids, Buttons;
 
 type
-  TForm_motoristas = class(TForm)
-    adoquery_motoristas: TADOQuery;
-    ds_motoristas: TDataSource;
-    dbgrid_motoristas: TDBGrid;
+  TForm_onibus = class(TForm)
+    ds_onibus: TDataSource;
+    dbgrid_onibus: TDBGrid;
+    adoquery_onibus: TADOQuery;
     btn_fechar: TSpeedButton;
     procedure FormShow(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
@@ -22,24 +22,24 @@ type
   end;
 
 var
-  Form_motoristas: TForm_motoristas;
+  Form_onibus: TForm_onibus;
 
 implementation
 
 {$R *.dfm}
 
-procedure TForm_motoristas.FormShow(Sender: TObject);
+procedure TForm_onibus.FormShow(Sender: TObject);
 begin
-  adoquery_motoristas.Open;
+  adoquery_onibus.Open;
 end;
 
-procedure TForm_motoristas.FormClose(Sender: TObject;
+procedure TForm_onibus.FormClose(Sender: TObject;
   var Action: TCloseAction);
 begin
-  adoquery_motoristas.Close;
+  adoquery_onibus.Close;
 end;
 
-procedure TForm_motoristas.btn_fecharClick(Sender: TObject);
+procedure TForm_onibus.btn_fecharClick(Sender: TObject);
 begin
   Close;
 end;
