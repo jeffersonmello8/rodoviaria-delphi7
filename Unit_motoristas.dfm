@@ -1,8 +1,8 @@
 object Form_motoristas: TForm_motoristas
-  Left = 367
-  Top = 145
-  Width = 479
-  Height = 407
+  Left = 537
+  Top = 193
+  Width = 557
+  Height = 444
   Caption = 'Motoristas'
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
@@ -16,8 +16,8 @@ object Form_motoristas: TForm_motoristas
   PixelsPerInch = 96
   TextHeight = 13
   object btn_fechar: TSpeedButton
-    Left = 168
-    Top = 320
+    Left = 208
+    Top = 360
     Width = 145
     Height = 33
     Caption = 'Fechar'
@@ -64,42 +64,136 @@ object Form_motoristas: TForm_motoristas
       FFFFFFFFFFFFFFFFFFFF}
     OnClick = btn_fecharClick
   end
-  object dbgrid_motoristas: TDBGrid
-    Left = 24
+  object Label1: TLabel
+    Left = 16
     Top = 40
-    Width = 433
-    Height = 249
-    DataSource = ds_motoristas
+    Width = 37
+    Height = 13
+    Caption = 'N'#250'mero'
+  end
+  object Label2: TLabel
+    Left = 104
+    Top = 40
+    Width = 28
+    Height = 13
+    Caption = 'Nome'
+  end
+  object Label3: TLabel
+    Left = 16
+    Top = 80
+    Width = 27
+    Height = 13
+    Caption = 'Idade'
+  end
+  object Label4: TLabel
+    Left = 104
+    Top = 80
+    Width = 24
+    Height = 13
+    Caption = 'Sexo'
+  end
+  object Label5: TLabel
+    Left = 152
+    Top = 80
+    Width = 32
+    Height = 13
+    Caption = 'Sal'#225'rio'
+  end
+  object btn_inserir: TSpeedButton
+    Left = 16
+    Top = 8
+    Width = 25
+    Height = 25
+    Glyph.Data = {
+      E6040000424DE604000000000000360000002800000014000000140000000100
+      180000000000B004000074120000741200000000000000000000FFFFFFFFFFFF
+      FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFA9A9
+      A90A0A0AFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFA9A9A99D9D9DFF
+      FFFFFFFFFF7F7F7F000000FFFFFFFFFFFFFFFFFFFFFFFFFFFFFF000000000000
+      E3E3E3FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF9D9D9D0000009E9E9EFFFF
+      FFFFFFFF121212000000F8F8F8FFFFFFFFFFFF616161000000000000777777FF
+      FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF9E9E9E0000009E9E9EFFFFFF
+      FFFFFF111111939393FFFFFFF1F1F1000000000000000000090909FFFFFFFFFF
+      FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF9F9F9F0000009E9E9EFFFFFFFF
+      FFFFFFFFFFFFFFFF272727000000000000000000000000EAEAEAFFFFFFFFFFFF
+      FFFFFFFFFFFFFFFFFF7F7F7FFFFFFFFFFFFF9F9F9F000000999999FFFFFFFFFF
+      FFBCBCBC0000000000000000000000000000007D7D7DFFFFFFFFFFFFFFFFFFFF
+      FFFFFFFFFF000000121212FFFFFFFFFFFF9A9A9A000000FFFFFFFFFFFF000000
+      000000000000000000000000000000101010FFFFFFFFFFFFFFFFFFFFFFFFFFFF
+      FFFFFFFF000000111111FFFFFFFFFFFFFFFFFFFFFFFF87878700000000000000
+      0000000000000000000000000000F1F1F1FFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+      F8F8F8939393FFFFFFFFFFFFFFFFFF888888E7E7E70000000000000000000000
+      00000000000000000000838383FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+      FFFFFFFFFFBDBDBD0000000000000000006F6F6F000000000000000000000000
+      000000000000171717FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF1F1F12727
+      2700000000000000000000000000000000000000000000000000000000000000
+      0000000000F7F7F7FFFFFFFFFFFFFFFFFFFFFFFF616161000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      008A8A8AFFFFFFFFFFFFA9A9A900000000000000000000000000000000000000
+      00000000000000000000000000000000000000000000000000000000001E1E1E
+      FFFFFFFFFFFF0A0A0A0000000000000000000000000000000000000000000000
+      00000000000000000000000000000000000000000000000000000000FEFEFEFF
+      FFFFFFFFFFE3E3E3777777090909000000000000000000000000000000000000
+      000000000000000000000000000000000000000000000000909090FFFFFFFFFF
+      FFFFFFFFFFFFFFFFFFFFEBEBEB7D7D7D10101000000000000000000000000000
+      0000000000000000000000000000000000000000252525FFFFFFFFFFFFFFFFFF
+      FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF1F1F18484841717170000000000000000
+      00000000000000000000000000000000000000FFFFFFFFFFFFFFFFFFFFFFFFFF
+      FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF8F8F88A8A8A1E1E1E000000
+      000000000000000000000000000000A4A4A4FFFFFFFFFFFFFFFFFFFFFFFFFFFF
+      FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFEFEFE90909025
+      2525000000000000000000404040FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+      FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+      FFA4A4A4404040141414}
+    OnClick = btn_inserirClick
+  end
+  object edit_numero: TEdit
+    Left = 16
+    Top = 56
+    Width = 65
+    Height = 21
     TabOrder = 0
+  end
+  object edit_nome: TEdit
+    Left = 104
+    Top = 56
+    Width = 305
+    Height = 21
+    TabOrder = 1
+  end
+  object edit_idade: TEdit
+    Left = 16
+    Top = 96
+    Width = 65
+    Height = 21
+    TabOrder = 2
+  end
+  object edit_sexo: TEdit
+    Left = 104
+    Top = 96
+    Width = 33
+    Height = 21
+    TabOrder = 3
+  end
+  object edit_salario: TEdit
+    Left = 152
+    Top = 96
+    Width = 97
+    Height = 21
+    TabOrder = 4
+  end
+  object dbgrid_motoristas: TDBGrid
+    Left = 16
+    Top = 128
+    Width = 513
+    Height = 209
+    DataSource = ds_motoristas
+    TabOrder = 5
     TitleFont.Charset = DEFAULT_CHARSET
     TitleFont.Color = clWindowText
     TitleFont.Height = -11
     TitleFont.Name = 'MS Sans Serif'
     TitleFont.Style = []
-    Columns = <
-      item
-        Expanded = False
-        FieldName = 'nome'
-        Width = 138
-        Visible = True
-      end
-      item
-        Expanded = False
-        FieldName = 'idade'
-        Visible = True
-      end
-      item
-        Expanded = False
-        FieldName = 'sexo'
-        Width = 42
-        Visible = True
-      end
-      item
-        Expanded = False
-        FieldName = 'salario'
-        Width = 116
-        Visible = True
-      end>
   end
   object adoquery_motoristas: TADOQuery
     Connection = Form_menu.ConexaoBD
@@ -107,15 +201,24 @@ object Form_motoristas: TForm_motoristas
     Parameters = <>
     SQL.Strings = (
       'select num_motorista as [C'#243'digo],'
-      '       nome as [Nome],'
-      #9'idade as [Idade],'
-      #9'sexo as [Sexo],'
-      #9'salario as [Salario] '
+      '          nome as [Nome],'
+      '          idade as [Idade],'
+      '          sexo as [Sexo],'
+      '          salario as [Salario] '
       '  from motoristas '
-      ' order by nome')
+      ' order by num_motorista asc')
+    Left = 16
+    Top = 376
   end
   object ds_motoristas: TDataSource
     DataSet = adoquery_motoristas
-    Left = 32
+    Left = 48
+    Top = 376
+  end
+  object adoquery_auxiliar: TADOQuery
+    Connection = Form_menu.ConexaoBD
+    Parameters = <>
+    Left = 504
+    Top = 376
   end
 end
