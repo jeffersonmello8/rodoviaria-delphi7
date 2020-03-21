@@ -55,10 +55,13 @@ end;
 
 procedure TForm_empresas.btn_inserirClick(Sender: TObject);
 begin
-  if(trim(edit_codigo.Text)='') or (trim(edit_nome.Text)='') then
+  if(trim(edit_codigo.Text)='') then
     begin
-      Showmessage('Você deixou de informar algum dos campos da tela.'+
-      ' Por favor, preencha todos os campos para prosseguir.');
+      Showmessage('Insira o código da empresa, por favor.');
+    end
+  else if (trim(edit_nome.Text)='') then
+    begin
+      Showmessage('Insira o nome da empresa, por favor');
     end
   else
     begin

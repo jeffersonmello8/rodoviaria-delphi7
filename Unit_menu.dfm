@@ -1,6 +1,6 @@
 object Form_menu: TForm_menu
-  Left = 512
-  Top = 259
+  Left = 511
+  Top = 236
   Width = 290
   Height = 268
   Caption = 'Sistema de Rodovi'#225'rias'

@@ -118,7 +118,7 @@ begin
   else
     begin
       Form_menu.ConexaoBD.BeginTrans;
-      adoquery_auxiliar.SQL.Text:= 'insert into onibus values ( ' +
+      adoquery_auxiliar.SQL.Text:= 'insert into onibus values (' +
                                     edit_numero.Text + ',' + IntToStr(CodigoEmpresa)
                                     + ',' + IntToStr(NumeroMotorista) + ','
                                     + quotedStr(edit_trajeto.Text) + ')';
