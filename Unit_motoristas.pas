@@ -92,7 +92,7 @@ begin
       Form_menu.ConexaoBD.CommitTrans;
       adoquery_motoristas.Close;
       adoquery_motoristas.Open;
-      Showmessage('Maravilha. O novo motorista foi inserido com sucesso!');
+      Showmessage('O novo motorista foi inserido com sucesso!');
       edit_numero.Clear;
       edit_nome.Clear;
       edit_idade.Clear;

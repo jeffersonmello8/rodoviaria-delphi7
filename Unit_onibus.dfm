@@ -1,8 +1,9 @@
 object Form_onibus: TForm_onibus
-  Left = 625
+  Left = 621
   Top = 177
-  Width = 658
-  Height = 527
+  Width = 648
+  Height = 535
+  BorderIcons = [biSystemMenu]
   Caption = #212'nibus'
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
@@ -16,8 +17,8 @@ object Form_onibus: TForm_onibus
   PixelsPerInch = 96
   TextHeight = 13
   object btn_fechar: TSpeedButton
-    Left = 248
-    Top = 440
+    Left = 240
+    Top = 432
     Width = 145
     Height = 33
     Caption = 'Fechar '
@@ -65,36 +66,36 @@ object Form_onibus: TForm_onibus
     OnClick = btn_fecharClick
   end
   object Label1: TLabel
-    Left = 24
-    Top = 40
+    Left = 8
+    Top = 32
     Width = 37
     Height = 13
     Caption = 'N'#250'mero'
   end
   object Label2: TLabel
-    Left = 104
-    Top = 40
+    Left = 80
+    Top = 32
     Width = 33
     Height = 13
     Caption = 'Trajeto'
   end
   object TLabel
-    Left = 24
-    Top = 80
+    Left = 8
+    Top = 72
     Width = 43
     Height = 13
     Caption = 'Motorista'
   end
   object Label3: TLabel
-    Left = 224
-    Top = 80
-    Width = 65
-    Height = 17
+    Left = 208
+    Top = 72
+    Width = 41
+    Height = 13
     Caption = 'Empresa'
   end
   object btn_inserir: TSpeedButton
-    Left = 24
-    Top = 8
+    Left = 8
+    Top = 0
     Width = 25
     Height = 25
     Glyph.Data = {
@@ -141,9 +142,9 @@ object Form_onibus: TForm_onibus
     OnClick = btn_inserirClick
   end
   object dbgrid_onibus: TDBGrid
-    Left = 24
-    Top = 136
-    Width = 609
+    Left = 8
+    Top = 128
+    Width = 601
     Height = 281
     DataSource = ds_onibus
     TabOrder = 0
@@ -154,37 +155,37 @@ object Form_onibus: TForm_onibus
     TitleFont.Style = []
   end
   object edit_numero: TEdit
-    Left = 24
-    Top = 56
+    Left = 8
+    Top = 48
     Width = 65
     Height = 21
     TabOrder = 1
   end
   object edit_trajeto: TEdit
-    Left = 104
-    Top = 56
+    Left = 80
+    Top = 48
     Width = 353
     Height = 21
     TabOrder = 2
   end
   object combobox_motorista: TComboBox
-    Left = 24
-    Top = 96
+    Left = 8
+    Top = 88
     Width = 169
-    Height = 21
+    Height = 19
+    Style = csOwnerDrawFixed
     ItemHeight = 13
     TabOrder = 3
-    Text = 'Selecione'
     OnChange = combobox_motoristaChange
   end
   object combobox_empresa: TComboBox
-    Left = 224
-    Top = 96
+    Left = 208
+    Top = 88
     Width = 233
     Height = 21
+    Style = csDropDownList
     ItemHeight = 13
     TabOrder = 4
-    Text = 'Selecione'
     OnChange = combobox_empresaChange
   end
   object ds_onibus: TDataSource

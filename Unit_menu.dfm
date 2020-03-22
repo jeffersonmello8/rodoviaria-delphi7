@@ -3,6 +3,7 @@ object Form_menu: TForm_menu
   Top = 236
   Width = 290
   Height = 268
+  BorderIcons = [biSystemMenu]
   Caption = 'Sistema de Rodovi'#225'rias'
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
@@ -127,7 +128,7 @@ object Form_menu: TForm_menu
       Top = 163
       Width = 137
       Height = 30
-      Caption = 'Fechar'
+      Caption = 'Fechar Aplica'#231#227'o'
       Glyph.Data = {
         E6040000424DE604000000000000360000002800000014000000140000000100
         180000000000B004000074120000741200000000000000000000FFFFFFFFFFFF

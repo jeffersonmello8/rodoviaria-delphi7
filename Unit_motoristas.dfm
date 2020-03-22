@@ -3,6 +3,7 @@ object Form_motoristas: TForm_motoristas
   Top = 193
   Width = 557
   Height = 444
+  BorderIcons = [biSystemMenu]
   Caption = 'Motoristas'
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET

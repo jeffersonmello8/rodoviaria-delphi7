@@ -18,10 +18,16 @@ type
     Label2: TLabel;
     adoquery_auxiliar: TADOQuery;
     btn_inserir: TSpeedButton;
+    btn_editar: TSpeedButton;
+    btn_salvar_alteracoes: TSpeedButton;
+    btn_cancelar: TSpeedButton;
     procedure btn_fecharClick(Sender: TObject);
     procedure FormShow(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure btn_inserirClick(Sender: TObject);
+    procedure btn_editarClick(Sender: TObject);
+    procedure btn_salvar_alteracoesClick(Sender: TObject);
+    procedure btn_cancelarClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -30,6 +36,7 @@ type
 
 var
   Form_empresas: TForm_empresas;
+  CodigoEmpresa: String;
 
 implementation
 
@@ -45,6 +52,8 @@ end;
 procedure TForm_empresas.FormShow(Sender: TObject);
 begin
   adoquery_empresas.Open;
+  btn_salvar_alteracoes.Visible := False;
+  btn_cancelar.Visible := False;
 end;
 
 procedure TForm_empresas.FormClose(Sender: TObject;
@@ -57,11 +66,11 @@ procedure TForm_empresas.btn_inserirClick(Sender: TObject);
 begin
   if(trim(edit_codigo.Text)='') then
     begin
-      Showmessage('Insira o código da empresa, por favor.');
+      Application.MessageBox('Insira o código da empresa, por favor.', 'Aviso', mb_iconinformation + mb_ok);
     end
   else if (trim(edit_nome.Text)='') then
     begin
-      Showmessage('Insira o nome da empresa, por favor');
+      Application.MessageBox('Insira o nome da empresa, por favor.', 'Aviso', mb_iconinformation + mb_ok);
     end
   else
     begin
@@ -72,10 +81,54 @@ begin
       Form_menu.ConexaoBD.CommitTrans;
       adoquery_empresas.Close;
       adoquery_empresas.Open;
-      Showmessage('Maravilha. A nova empresa foi inserida com sucesso!');
+      Application.MessageBox('A nova empresa foi inserida com sucesso!', 'Aviso', mb_iconinformation + mb_ok);
       edit_codigo.Clear;
       edit_nome.Clear;
     end;
+end;
+
+procedure TForm_empresas.btn_editarClick(Sender: TObject);
+begin
+  CodigoEmpresa := adoquery_empresas.fieldbyname('Código').AsString;
+  edit_codigo.Text := CodigoEmpresa;
+  edit_nome.Text := adoquery_empresas.fieldbyname('nome').AsString;
+  btn_inserir.Visible := False;
+  btn_salvar_alteracoes.Visible := True;
+  btn_editar.Visible := False;
+  btn_cancelar.Visible := True;
+end;
+
+procedure TForm_empresas.btn_salvar_alteracoesClick(Sender: TObject);
+begin
+  Form_menu.ConexaoBD.BeginTrans;
+  adoquery_auxiliar.SQL.Text := 'update empresas ' +
+                                   'set cod_empresa = ' + edit_codigo.Text +
+                                   ',' + 'nome = ' + QuotedStr(edit_nome.Text) +
+                                   'where cod_empresa = ' + CodigoEmpresa;
+  adoquery_auxiliar.ExecSQL;
+  Form_menu.ConexaoBD.CommitTrans;
+  adoquery_empresas.Close;
+  adoquery_empresas.Open;
+  Application.MessageBox('Suas alterações foram salvas com sucesso!', 'Aviso', mb_iconinformation + mb_ok);
+  edit_codigo.Clear;
+  edit_nome.Clear;
+  btn_inserir.Visible := True;
+  btn_editar.Visible := True;
+  btn_salvar_alteracoes.Visible := False;
+  btn_cancelar.Visible := False;
+end;
+
+procedure TForm_empresas.btn_cancelarClick(Sender: TObject);
+begin
+  if (Application.MessageBox('Tem certeza que deseja cancelar a edição?', 'Aviso', mb_iconquestion + mb_yesno) = idYes) then
+  begin
+    edit_codigo.Clear;
+    edit_nome.Clear;
+    btn_inserir.Visible := True;
+    btn_editar.Visible := True;
+    btn_cancelar.Visible := False;
+    btn_salvar_alteracoes.Visible := False;
+  end;
 end;
 
 end.

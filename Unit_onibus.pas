@@ -47,6 +47,8 @@ procedure TForm_onibus.FormShow(Sender: TObject);
 begin
   adoquery_onibus.Open;
   combobox_motorista.Clear;
+  combobox_motorista.Items.Add('(SELECIONE)');
+  combobox_motorista.ItemIndex := 0;
   adoquery_auxiliar.SQL.Text := 'select nome from motoristas order by nome';
   adoquery_auxiliar.Open;
   while not adoquery_auxiliar.Eof do
@@ -56,6 +58,8 @@ begin
     end;
   adoquery_auxiliar.Close;
   combobox_empresa.Clear;
+  combobox_empresa.Items.Add('(SELECIONE)');
+  combobox_empresa.ItemIndex := 0;
   adoquery_auxiliar.SQL.Text := 'select nome from empresas order by nome';
   adoquery_auxiliar.Open;
   while not adoquery_auxiliar.Eof do
@@ -101,19 +105,19 @@ procedure TForm_onibus.btn_inserirClick(Sender: TObject);
 begin
   if (trim(edit_numero.Text)= '') then
     begin
-      Showmessage('Insira o número do ônibus, por favor');
+      Application.MessageBox('Insira o número do ônibus, por favor.', 'Aviso', mb_iconinformation + mb_ok);
     end
   else if (trim(edit_trajeto.Text)= '') then
     begin
-      Showmessage('Insira o nome do trajeto, por favor');
+      Application.MessageBox('Insira o nome do trajeto, por favor.', 'Aviso', mb_iconinformation + mb_ok);
     end
-  else if (trim(combobox_motorista.Text)= '') then
+  else if (trim(combobox_motorista.Text)= '') or (combobox_motorista.ItemIndex = 0) then
     begin
-      Showmessage ('Selecione o motorista do ônibus, por favor');
+      Application.MessageBox('Selecione o motorista do ônibus, por favor.', 'Aviso', mb_iconinformation + mb_ok);
     end
-  else if (trim(combobox_empresa.Text)= '') then
+  else if (trim(combobox_empresa.Text)= '') or (combobox_empresa.ItemIndex = 0) then
     begin
-      Showmessage ('Selecione a empresa do ônibus, por favor');
+      Application.MessageBox('Selecione a empresa do ônibus, por favor.', 'Aviso', mb_iconinformation + mb_ok);
     end
   else
     begin
@@ -126,11 +130,11 @@ begin
       Form_menu.ConexaoBD.CommitTrans;
       adoquery_onibus.Close;
       adoquery_onibus.Open;
-      Showmessage ('Show! O ônibus foi inserido com sucesso!');
+      Application.MessageBox('O ônibus foi inserido com sucesso!', 'Aviso', mb_iconinformation + mb_ok);
       edit_numero.Clear;
       edit_trajeto.Clear;
-      combobox_motorista.ItemIndex := -1;
-      combobox_empresa.ItemIndex := -1;
+      combobox_motorista.ItemIndex := 0;
+      combobox_empresa.ItemIndex := 0;
     end;
 end;
 

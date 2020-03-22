@@ -11,6 +11,7 @@ uses
 
 begin
   Application.Initialize;
+  Application.Title := 'Sistema de Rodoviárias';
   Application.CreateForm(TForm_menu, Form_menu);
   Application.CreateForm(TForm_empresas, Form_empresas);
   Application.CreateForm(TForm_motoristas, Form_motoristas);
