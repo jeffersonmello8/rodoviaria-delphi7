@@ -1,6 +1,6 @@
 object Form_motoristas: TForm_motoristas
-  Left = 562
-  Top = 335
+  Left = 567
+  Top = 316
   Width = 557
   Height = 481
   BorderIcons = [biSystemMenu]

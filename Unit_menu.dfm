@@ -1,6 +1,6 @@
 object Form_menu: TForm_menu
-  Left = 511
-  Top = 236
+  Left = 396
+  Top = 229
   Width = 290
   Height = 268
   BorderIcons = [biSystemMenu]

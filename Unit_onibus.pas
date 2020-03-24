@@ -19,16 +19,22 @@ type
     combobox_motorista: TComboBox;
     Label3: TLabel;
     combobox_empresa: TComboBox;
-    btn_inserir: TSpeedButton;
     adoquery_auxiliar: TADOQuery;
+    btn_inserir: TSpeedButton;
+    btn_editar: TSpeedButton;
+    btn_salvar_alteracoes: TSpeedButton;
+    btn_cancelar: TSpeedButton;
     procedure FormShow(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure btn_fecharClick(Sender: TObject);
     procedure combobox_motoristaChange(Sender: TObject);
     procedure combobox_empresaChange(Sender: TObject);
     procedure btn_inserirClick(Sender: TObject);
+    procedure btn_editarClick(Sender: TObject);
+    procedure btn_cancelarClick(Sender: TObject);
+    procedure btn_salvar_alteracoesClick(Sender: TObject);
   private
-    { Private declarations }
+    function RetornaIndice(ComboBox : TComboBox; Texto : string):Integer;
   public
     { Public declarations }
   end;
@@ -36,6 +42,7 @@ type
 var
   Form_onibus: TForm_onibus;
   NumeroMotorista, CodigoEmpresa : Integer;
+  Onibus : String;
 
 implementation
 
@@ -68,6 +75,8 @@ begin
       adoquery_auxiliar.Next;
     end;
   adoquery_auxiliar.Close;
+  btn_salvar_alteracoes.Visible := False;
+  btn_cancelar.Visible := False;
 end;
 
 procedure TForm_onibus.FormClose(Sender: TObject;
@@ -139,6 +148,97 @@ begin
       edit_trajeto.Clear;
       combobox_motorista.ItemIndex := 0;
       combobox_empresa.ItemIndex := 0;
+    end;
+end;
+
+procedure TForm_onibus.btn_editarClick(Sender: TObject);
+begin
+  Onibus := adoquery_onibus.fieldbyname('Ônibus').AsString;
+  edit_numero.Text := adoquery_onibus.fieldbyname('Ônibus').AsString;
+  edit_trajeto.Text := adoquery_onibus.fieldbyname('Trajeto').AsString;
+  combobox_motorista.ItemIndex := RetornaIndice(combobox_motorista, adoquery_onibus.fieldbyname('Motorista').AsString);
+  combobox_motoristaChange(Sender);
+  combobox_empresa.ItemIndex := RetornaIndice(combobox_empresa, adoquery_onibus.fieldbyname('Empresa').AsString);
+  combobox_empresaChange(Sender);
+  btn_salvar_alteracoes.Visible := True;
+  btn_cancelar.Visible := True;
+  btn_inserir.Visible := False;
+  btn_editar.Visible := False;
+end;
+
+function TForm_onibus.RetornaIndice(ComboBox: TComboBox;
+  Texto: string): Integer;
+var
+  I : Integer;
+begin
+  Result := -1;
+
+  for I := 0 to Pred(ComboBox.Items.Count) do
+  begin
+    if ComboBox.Items[I] = Texto then
+    begin
+      Result := I;
+      Break;
+    end;
+  end;
+end;
+
+procedure TForm_onibus.btn_cancelarClick(Sender: TObject);
+begin
+  edit_numero.Clear;
+  edit_trajeto.Clear;
+  combobox_motorista.ItemIndex := 0;
+  combobox_empresa.ItemIndex := 0;
+  btn_salvar_alteracoes.Visible := False;
+  btn_cancelar.Visible := False;
+  btn_inserir.Visible := True;
+  btn_editar.Visible := True;
+end;
+
+procedure TForm_onibus.btn_salvar_alteracoesClick(Sender: TObject);
+begin
+  if (trim(edit_numero.Text)= '') then
+    begin
+      Application.MessageBox('Insira o número do ônibus, por favor.', 'Aviso', mb_iconinformation + mb_ok);
+      edit_numero.SetFocus;
+    end
+  else if (trim(edit_trajeto.Text)= '') then
+    begin
+      Application.MessageBox('Insira o nome do trajeto, por favor.', 'Aviso', mb_iconinformation + mb_ok);
+      edit_trajeto.SetFocus;
+    end
+  else if (trim(combobox_motorista.Text)= '') or (combobox_motorista.ItemIndex = 0) then
+    begin
+      Application.MessageBox('Selecione o motorista do ônibus, por favor.', 'Aviso', mb_iconinformation + mb_ok);
+      combobox_motorista.SetFocus;
+    end
+  else if (trim(combobox_empresa.Text)= '') or (combobox_empresa.ItemIndex = 0) then
+    begin
+      Application.MessageBox('Selecione a empresa do ônibus, por favor.', 'Aviso', mb_iconinformation + mb_ok);
+      combobox_empresa.SetFocus;
+    end
+  else
+    begin
+      Form_menu.ConexaoBD.BeginTrans;
+      adoquery_auxiliar.SQL.Text := 'update onibus ' +
+                                       'set num_onibus = ' + QuotedStr(edit_numero.Text) + ', ' +
+                                            'trajeto = ' + QuotedStr(edit_trajeto.Text) + ', ' +
+                                            'num_motorista = ' + inttostr(NumeroMotorista) + ', ' +
+                                            'cod_empresa = ' + inttostr(CodigoEmpresa) + ' ' +
+                                     'where num_onibus = ' + Onibus;
+      adoquery_auxiliar.ExecSQL;
+      Form_menu.ConexaoBD.CommitTrans;
+      adoquery_onibus.Close;
+      adoquery_onibus.Open;
+      Application.MessageBox('Suas alterações foram salvas com sucesso!', 'Aviso', mb_iconinformation + mb_ok);
+      edit_numero.Clear;
+      edit_trajeto.Clear;
+      combobox_motorista.ItemIndex := 0;
+      combobox_empresa.ItemIndex := 0;
+      btn_salvar_alteracoes.Visible := False;
+      btn_cancelar.Visible := False;
+      btn_inserir.Visible := True;
+      btn_editar.Visible := True;
     end;
 end;
 
