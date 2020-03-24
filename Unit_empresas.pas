@@ -67,10 +67,12 @@ begin
   if(trim(edit_codigo.Text)='') then
     begin
       Application.MessageBox('Insira o código da empresa, por favor.', 'Aviso', mb_iconinformation + mb_ok);
+      edit_codigo.SetFocus;
     end
   else if (trim(edit_nome.Text)='') then
     begin
       Application.MessageBox('Insira o nome da empresa, por favor.', 'Aviso', mb_iconinformation + mb_ok);
+      edit_nome.SetFocus;
     end
   else
     begin
@@ -100,22 +102,35 @@ end;
 
 procedure TForm_empresas.btn_salvar_alteracoesClick(Sender: TObject);
 begin
-  Form_menu.ConexaoBD.BeginTrans;
-  adoquery_auxiliar.SQL.Text := 'update empresas ' +
-                                   'set cod_empresa = ' + edit_codigo.Text +
-                                   ',' + 'nome = ' + QuotedStr(edit_nome.Text) +
-                                   'where cod_empresa = ' + CodigoEmpresa;
-  adoquery_auxiliar.ExecSQL;
-  Form_menu.ConexaoBD.CommitTrans;
-  adoquery_empresas.Close;
-  adoquery_empresas.Open;
-  Application.MessageBox('Suas alterações foram salvas com sucesso!', 'Aviso', mb_iconinformation + mb_ok);
-  edit_codigo.Clear;
-  edit_nome.Clear;
-  btn_inserir.Visible := True;
-  btn_editar.Visible := True;
-  btn_salvar_alteracoes.Visible := False;
-  btn_cancelar.Visible := False;
+  if(trim(edit_codigo.Text)='') then
+    begin
+      Application.MessageBox('Insira o código da empresa, por favor.', 'Aviso', mb_iconinformation + mb_ok);
+      edit_codigo.SetFocus;
+    end
+  else if (trim(edit_nome.Text)='') then
+    begin
+      Application.MessageBox('Insira o nome da empresa, por favor.', 'Aviso', mb_iconinformation + mb_ok);
+      edit_nome.SetFocus;
+    end
+  else
+    begin
+      Form_menu.ConexaoBD.BeginTrans;
+      adoquery_auxiliar.SQL.Text := 'update empresas ' +
+                                       'set cod_empresa = ' + edit_codigo.Text +
+                                     ',' + 'nome = ' + QuotedStr(edit_nome.Text) +
+                                     'where cod_empresa = ' + CodigoEmpresa;
+      adoquery_auxiliar.ExecSQL;
+      Form_menu.ConexaoBD.CommitTrans;
+      adoquery_empresas.Close;
+      adoquery_empresas.Open;
+      Application.MessageBox('Suas alterações foram salvas com sucesso!', 'Aviso', mb_iconinformation + mb_ok);
+      edit_codigo.Clear;
+      edit_nome.Clear;
+      btn_inserir.Visible := True;
+      btn_editar.Visible := True;
+      btn_salvar_alteracoes.Visible := False;
+      btn_cancelar.Visible := False;
+    end;
 end;
 
 procedure TForm_empresas.btn_cancelarClick(Sender: TObject);

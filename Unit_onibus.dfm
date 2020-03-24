@@ -1,6 +1,6 @@
 object Form_onibus: TForm_onibus
-  Left = 621
-  Top = 177
+  Left = 501
+  Top = 205
   Width = 648
   Height = 535
   BorderIcons = [biSystemMenu]
@@ -21,7 +21,7 @@ object Form_onibus: TForm_onibus
     Top = 432
     Width = 145
     Height = 33
-    Caption = 'Fechar '
+    Caption = 'Fechar'
     Glyph.Data = {
       E6040000424DE604000000000000360000002800000014000000140000000100
       180000000000B004000074120000741200000000000000000000FFFFFFFFFFFF
@@ -98,6 +98,7 @@ object Form_onibus: TForm_onibus
     Top = 0
     Width = 25
     Height = 25
+    Caption = '-'
     Glyph.Data = {
       E6040000424DE604000000000000360000002800000014000000140000000100
       180000000000B004000074120000741200000000000000000000FFFFFFFFFFFF

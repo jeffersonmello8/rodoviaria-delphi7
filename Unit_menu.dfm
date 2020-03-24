@@ -123,7 +123,7 @@ object Form_menu: TForm_menu
         FFFFFFFFFFFFFFFFFFFF}
       OnClick = btn_motoristasClick
     end
-    object btn_Fechar: TSpeedButton
+    object btn_fechar: TSpeedButton
       Left = 48
       Top = 163
       Width = 137

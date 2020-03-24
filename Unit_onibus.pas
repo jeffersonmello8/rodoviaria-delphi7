@@ -106,18 +106,22 @@ begin
   if (trim(edit_numero.Text)= '') then
     begin
       Application.MessageBox('Insira o número do ônibus, por favor.', 'Aviso', mb_iconinformation + mb_ok);
+      edit_numero.SetFocus;
     end
   else if (trim(edit_trajeto.Text)= '') then
     begin
       Application.MessageBox('Insira o nome do trajeto, por favor.', 'Aviso', mb_iconinformation + mb_ok);
+      edit_trajeto.SetFocus;
     end
   else if (trim(combobox_motorista.Text)= '') or (combobox_motorista.ItemIndex = 0) then
     begin
       Application.MessageBox('Selecione o motorista do ônibus, por favor.', 'Aviso', mb_iconinformation + mb_ok);
+      combobox_motorista.SetFocus;
     end
   else if (trim(combobox_empresa.Text)= '') or (combobox_empresa.ItemIndex = 0) then
     begin
       Application.MessageBox('Selecione a empresa do ônibus, por favor.', 'Aviso', mb_iconinformation + mb_ok);
+      combobox_empresa.SetFocus;
     end
   else
     begin

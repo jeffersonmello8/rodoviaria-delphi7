@@ -1,6 +1,6 @@
 object Form_empresas: TForm_empresas
-  Left = 482
-  Top = 234
+  Left = 358
+  Top = 237
   Width = 480
   Height = 320
   BorderIcons = [biSystemMenu]

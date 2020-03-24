@@ -9,7 +9,7 @@ uses
 type
   TForm_menu = class(TForm)
     ConexaoBD: TADOConnection;
-    btn_Fechar: TSpeedButton;
+    btn_fechar: TSpeedButton;
     btn_empresas: TSpeedButton;
     btn_motoristas: TSpeedButton;
     btn_onibus: TSpeedButton;
