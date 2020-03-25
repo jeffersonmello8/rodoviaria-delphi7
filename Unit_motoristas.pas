@@ -27,6 +27,7 @@ type
     btn_editar: TSpeedButton;
     btn_salvar_alteracoes: TSpeedButton;
     btn_cancelar: TSpeedButton;
+    btn_excluir: TSpeedButton;
     procedure FormShow(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure btn_fecharClick(Sender: TObject);
@@ -35,6 +36,7 @@ type
     procedure btn_cancelarClick(Sender: TObject);
     procedure btn_salvar_alteracoesClick(Sender: TObject);
     procedure edit_sexoChange(Sender: TObject);
+    procedure btn_excluirClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -128,6 +130,7 @@ begin
   btn_cancelar.Visible := True;
   btn_inserir.Visible := False;
   btn_editar.Visible := False;
+  btn_excluir.Visible := False;
 end;
 
 procedure TForm_motoristas.btn_cancelarClick(Sender: TObject);
@@ -209,6 +212,28 @@ begin
       Application.MessageBox('Opção inválida, insira "M" para Masculino ou "F" para Feminino.', 'Aviso', MB_ICONWARNING + mb_ok);
       edit_sexo.Clear;
     end
+end;
+
+procedure TForm_motoristas.btn_excluirClick(Sender: TObject);
+begin
+  if (Application.MessageBox('Tem certeza que deseja realizar a exclusão?', 'Aviso', mb_iconquestion + mb_yesno) = idYes) then
+    begin
+      NumeroMotorista := adoquery_motoristas.fieldbyname('Código').AsString;
+      Form_menu.ConexaoBD.BeginTrans;
+      adoquery_auxiliar.SQL.Text := 'delete ' +
+                                      'from motoristas ' +
+                                     'where num_motorista = ' + NumeroMotorista;
+      adoquery_auxiliar.ExecSQL;
+      Form_menu.ConexaoBD.CommitTrans;
+      adoquery_motoristas.Close;
+      adoquery_motoristas.Open;
+      Application.MessageBox('Exclusão realizada com sucesso!', 'Aviso', mb_iconinformation + mb_ok);
+      edit_numero.Clear;
+      edit_nome.Clear;
+      edit_idade.Clear;
+      edit_sexo.Clear;
+      edit_salario.Clear;
+    end;
 end;
 
 end.

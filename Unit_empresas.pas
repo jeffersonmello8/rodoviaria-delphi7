@@ -21,6 +21,7 @@ type
     btn_editar: TSpeedButton;
     btn_salvar_alteracoes: TSpeedButton;
     btn_cancelar: TSpeedButton;
+    btn_excluir: TSpeedButton;
     procedure btn_fecharClick(Sender: TObject);
     procedure FormShow(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
@@ -28,6 +29,7 @@ type
     procedure btn_editarClick(Sender: TObject);
     procedure btn_salvar_alteracoesClick(Sender: TObject);
     procedure btn_cancelarClick(Sender: TObject);
+    procedure btn_excluirClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -98,6 +100,7 @@ begin
   btn_salvar_alteracoes.Visible := True;
   btn_editar.Visible := False;
   btn_cancelar.Visible := True;
+  btn_excluir.Visible := False;
 end;
 
 procedure TForm_empresas.btn_salvar_alteracoesClick(Sender: TObject);
@@ -144,6 +147,22 @@ begin
     btn_cancelar.Visible := False;
     btn_salvar_alteracoes.Visible := False;
   end;
+end;
+
+procedure TForm_empresas.btn_excluirClick(Sender: TObject);
+begin
+  CodigoEmpresa := adoquery_empresas.fieldbyname('Código').AsString;
+  Form_menu.ConexaoBD.BeginTrans;
+  adoquery_auxiliar.SQL.Text := 'delete ' +
+                                  'from empresas ' +
+                                 'where cod_empresa = ' + CodigoEmpresa;
+  adoquery_auxiliar.ExecSQL;
+  Form_menu.ConexaoBD.CommitTrans;
+  adoquery_empresas.Close;
+  adoquery_empresas.Open;
+  Application.MessageBox('O registro selecionado foi excluído com sucesso!', 'Aviso', mb_iconinformation + mb_ok);
+  edit_codigo.Clear;
+  edit_nome.Clear;
 end;
 
 end.

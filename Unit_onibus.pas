@@ -24,6 +24,7 @@ type
     btn_editar: TSpeedButton;
     btn_salvar_alteracoes: TSpeedButton;
     btn_cancelar: TSpeedButton;
+    btn_excluir: TSpeedButton;
     procedure FormShow(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure btn_fecharClick(Sender: TObject);
@@ -33,6 +34,7 @@ type
     procedure btn_editarClick(Sender: TObject);
     procedure btn_cancelarClick(Sender: TObject);
     procedure btn_salvar_alteracoesClick(Sender: TObject);
+    procedure btn_excluirClick(Sender: TObject);
   private
     function RetornaIndice(ComboBox : TComboBox; Texto : string):Integer;
   public
@@ -164,6 +166,7 @@ begin
   btn_cancelar.Visible := True;
   btn_inserir.Visible := False;
   btn_editar.Visible := False;
+  btn_excluir.Visible := False;
 end;
 
 function TForm_onibus.RetornaIndice(ComboBox: TComboBox;
@@ -239,6 +242,23 @@ begin
       btn_cancelar.Visible := False;
       btn_inserir.Visible := True;
       btn_editar.Visible := True;
+    end;
+end;
+
+procedure TForm_onibus.btn_excluirClick(Sender: TObject);
+begin
+  if (Application.MessageBox('Tem certeza que deseja realizar a exclusão?', 'Aviso', mb_iconquestion + mb_yesno) = idYes) then
+    begin
+      Onibus := adoquery_onibus.fieldbyname('Ônibus').AsString;
+      Form_menu.ConexaoBD.BeginTrans;
+      adoquery_auxiliar.SQL.Text := 'delete ' +
+                                    '  from onibus ' +
+                                    ' where num_onibus = ' + Onibus;
+      adoquery_auxiliar.ExecSQL;
+      Form_menu.ConexaoBD.CommitTrans;
+      Application.MessageBox('Exclusão realizada com sucesso!', 'Aviso', mb_iconinformation + mb_ok);
+      adoquery_onibus.Close;
+      adoquery_onibus.Open;
     end;
 end;
 
