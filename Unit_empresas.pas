@@ -39,6 +39,7 @@ type
 var
   Form_empresas: TForm_empresas;
   CodigoEmpresa: String;
+  OcorreuErro : Boolean;
 
 implementation
 
@@ -81,13 +82,36 @@ begin
       Form_menu.ConexaoBD.BeginTrans;
       adoquery_auxiliar.SQL.Text:='insert into empresas values (' +
         edit_codigo.Text + ',' + QuotedStr(edit_nome.Text) + ')';
-      adoquery_auxiliar.ExecSQL;
-      Form_menu.ConexaoBD.CommitTrans;
-      adoquery_empresas.Close;
-      adoquery_empresas.Open;
-      Application.MessageBox('A nova empresa foi inserida com sucesso!', 'Aviso', mb_iconinformation + mb_ok);
-      edit_codigo.Clear;
-      edit_nome.Clear;
+      try
+        adoquery_auxiliar.ExecSQL;
+        OcorreuErro := False;
+      except
+        on E : Exception do
+        begin
+          OcorreuErro := True;
+        if (Form_menu.ErroBancoDeDados(E.Message, 'PK_Empresas') = 'Sim') then
+          begin
+            Application.MessageBox('O código inserido já foi cadastrado, insira um novo.', 'Aviso', mb_iconexclamation + mb_ok);
+          end
+        else
+          begin
+            Application.MessageBox(PAnsiChar('Sentimos muito! Ocorreu o seguinte erro:' + E.Message), 'Aviso', mb_iconexclamation + mb_ok);
+          end
+      end;
+    end;
+    if (OcorreuErro = False) then
+      begin
+        Form_menu.ConexaoBD.CommitTrans;
+        adoquery_empresas.Close;
+        adoquery_empresas.Open;
+        Application.MessageBox('A nova empresa foi inserida com sucesso!', 'Aviso', mb_iconinformation + mb_ok);
+        edit_codigo.Clear;
+        edit_nome.Clear;
+      end
+    else
+      begin
+        Form_menu.ConexaoBD.RollbackTrans;
+      end;
     end;
 end;
 
@@ -122,17 +146,44 @@ begin
                                        'set cod_empresa = ' + edit_codigo.Text +
                                      ',' + 'nome = ' + QuotedStr(edit_nome.Text) +
                                      'where cod_empresa = ' + CodigoEmpresa;
-      adoquery_auxiliar.ExecSQL;
-      Form_menu.ConexaoBD.CommitTrans;
-      adoquery_empresas.Close;
-      adoquery_empresas.Open;
-      Application.MessageBox('Suas alterações foram salvas com sucesso!', 'Aviso', mb_iconinformation + mb_ok);
-      edit_codigo.Clear;
-      edit_nome.Clear;
-      btn_inserir.Visible := True;
-      btn_editar.Visible := True;
-      btn_salvar_alteracoes.Visible := False;
-      btn_cancelar.Visible := False;
+      try
+        adoquery_auxiliar.ExecSQL;
+        OcorreuErro := False;
+      except
+        on E: Exception do
+        begin
+          OcorreuErro := True;
+          if (Form_menu.ErroBancoDeDados(E.Message, 'FK_Onibus_Empresas')) = 'Sim' then
+            begin
+              Application.MessageBox('Não foi possível alterar o código pois existem ônibus ligados ao código desta empresa.', 'Aviso', mb_iconexclamation + mb_ok);
+            end
+          else if (Form_menu.ErroBancoDeDados(E.Message, 'PK_Empresas')) = 'Sim' then
+            begin
+              Application.MessageBox('O código inserido já foi cadastrado, insira um novo.', 'Aviso', mb_iconexclamation + mb_ok);
+            end
+          else
+            begin
+              Application.MessageBox(PAnsiChar('Sentimos muito! Ocorreu o seguinte erro:' + E.Message), 'Aviso', mb_iconexclamation + mb_ok);
+            end
+        end;
+    end;
+      if (OcorreuErro = False) then
+        begin
+          Form_menu.ConexaoBD.CommitTrans;
+          adoquery_empresas.Close;
+          adoquery_empresas.Open;
+          Application.MessageBox('Suas alterações foram salvas com sucesso!', 'Aviso', mb_iconinformation + mb_ok);
+          edit_codigo.Clear;
+          edit_nome.Clear;
+          btn_inserir.Visible := True;
+          btn_editar.Visible := True;
+          btn_salvar_alteracoes.Visible := False;
+          btn_cancelar.Visible := False;
+        end
+      else
+        begin
+          Form_menu.ConexaoBD.RollbackTrans;
+        end;
     end;
 end;
 
@@ -156,13 +207,36 @@ begin
   adoquery_auxiliar.SQL.Text := 'delete ' +
                                   'from empresas ' +
                                  'where cod_empresa = ' + CodigoEmpresa;
-  adoquery_auxiliar.ExecSQL;
-  Form_menu.ConexaoBD.CommitTrans;
-  adoquery_empresas.Close;
-  adoquery_empresas.Open;
-  Application.MessageBox('O registro selecionado foi excluído com sucesso!', 'Aviso', mb_iconinformation + mb_ok);
-  edit_codigo.Clear;
-  edit_nome.Clear;
+  try
+    adoquery_auxiliar.ExecSQL;
+    OcorreuErro := False;
+  except
+    on E: Exception do
+    begin
+      OcorreuErro := True;
+      if (Form_menu.ErroBancoDeDados(E.Message, 'FK_Onibus_Empresas')) = 'Sim' then
+        begin
+          Application.MessageBox('Não foi possível excluir esse registro pois existem ônibus ligados ao código desta empresa.', 'Aviso', mb_iconexclamation + mb_ok);
+        end
+      else
+        begin
+          Application.MessageBox(PAnsiChar('Sentimos muito! Ocorreu o seguinte erro:' + E.Message), 'Aviso', mb_iconexclamation + mb_ok);
+        end
+    end
+end;
+  if (OcorreuErro = False) then
+    begin
+      Form_menu.ConexaoBD.CommitTrans;
+      adoquery_empresas.Close;
+      adoquery_empresas.Open;
+      Application.MessageBox('O registro selecionado foi excluído com sucesso!', 'Aviso', mb_iconinformation + mb_ok);
+      edit_codigo.Clear;
+      edit_nome.Clear;
+    end
+  else
+    begin
+      Form_menu.ConexaoBD.RollbackTrans;
+    end
 end;
 
 end.

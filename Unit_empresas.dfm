@@ -445,7 +445,7 @@ object Form_empresas: TForm_empresas
     Top = 65
     Width = 57
     Height = 21
-    MaxLength = 10
+    MaxLength = 4
     TabOrder = 1
   end
   object edit_nome: TEdit

@@ -23,7 +23,7 @@ type
   private
     { Private declarations }
   public
-    { Public declarations }
+    function ErroBancoDeDados (Mensagem: String; Texto: String) : String;
   end;
 
 var
@@ -63,6 +63,28 @@ end;
 procedure TForm_menu.btn_onibusClick(Sender: TObject);
 begin
   Form_onibus.showmodal;
+end;
+
+function TForm_menu.ErroBancoDeDados(Mensagem, Texto: String): String;
+var
+  I, TamanhoMensagem, TamanhoTexto : Integer;
+  Pedaco: String;
+begin
+
+  TamanhoMensagem := length(Mensagem);
+  TamanhoTexto := length(Texto);
+
+  for i := 1 to TamanhoMensagem do
+  begin
+    Pedaco := copy(Mensagem, I, TamanhoTexto);
+    if Pedaco = Texto then
+      begin
+        Result := 'Sim';
+        Break;
+      end
+    else
+      Result := 'Não';
+    end;
 end;
 
 end.

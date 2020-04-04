@@ -1,8 +1,8 @@
 object Form_menu: TForm_menu
-  Left = 396
-  Top = 229
-  Width = 290
-  Height = 268
+  Left = 424
+  Top = 180
+  Width = 577
+  Height = 429
   BorderIcons = [biSystemMenu]
   Caption = 'Sistema de Rodovi'#225'rias'
   Color = clBtnFace
@@ -19,17 +19,17 @@ object Form_menu: TForm_menu
   object gp_acesso: TGroupBox
     Left = 24
     Top = 16
-    Width = 241
-    Height = 209
+    Width = 521
+    Height = 337
     Caption = 'Acesso'
     Color = clBtnFace
     ParentColor = False
     TabOrder = 0
     object btn_onibus: TSpeedButton
       Left = 48
-      Top = 120
-      Width = 137
-      Height = 30
+      Top = 168
+      Width = 401
+      Height = 49
       Caption = #212'nibus'
       Glyph.Data = {
         E6040000424DE604000000000000360000002800000014000000140000000100
@@ -76,9 +76,9 @@ object Form_menu: TForm_menu
     end
     object btn_motoristas: TSpeedButton
       Left = 48
-      Top = 80
-      Width = 137
-      Height = 30
+      Top = 104
+      Width = 401
+      Height = 49
       Caption = 'Motoristas'
       Glyph.Data = {
         E6040000424DE604000000000000360000002800000014000000140000000100
@@ -125,9 +125,9 @@ object Form_menu: TForm_menu
     end
     object btn_fechar: TSpeedButton
       Left = 48
-      Top = 163
-      Width = 137
-      Height = 30
+      Top = 235
+      Width = 401
+      Height = 46
       Caption = 'Fechar Aplica'#231#227'o'
       Glyph.Data = {
         E6040000424DE604000000000000360000002800000014000000140000000100
@@ -175,8 +175,8 @@ object Form_menu: TForm_menu
     object btn_empresas: TSpeedButton
       Left = 48
       Top = 40
-      Width = 137
-      Height = 30
+      Width = 401
+      Height = 49
       Caption = 'Empresas'
       Glyph.Data = {
         E6040000424DE604000000000000360000002800000014000000140000000100
