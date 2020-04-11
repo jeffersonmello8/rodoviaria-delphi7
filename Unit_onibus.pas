@@ -44,8 +44,8 @@ type
 
 var
   Form_onibus: TForm_onibus;
-  NumeroMotorista, CodigoEmpresa : Integer;
-  Onibus : String;
+  NumeroMotorista, CodigoEmpresa: Integer;
+  Onibus: String;
 
 implementation
 

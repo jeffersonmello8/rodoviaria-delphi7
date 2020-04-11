@@ -39,7 +39,7 @@ type
 var
   Form_empresas: TForm_empresas;
   CodigoEmpresa: String;
-  OcorreuErro : Boolean;
+  OcorreuErro: Boolean;
 
 implementation
 
