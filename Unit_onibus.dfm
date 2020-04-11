@@ -65,28 +65,28 @@ object Form_onibus: TForm_onibus
       FFFFFFFFFFFFFFFFFFFF}
     OnClick = btn_fecharClick
   end
-  object Label1: TLabel
+  object lb_numero: TLabel
     Left = 8
     Top = 48
     Width = 37
     Height = 13
     Caption = 'N'#250'mero'
   end
-  object Label2: TLabel
+  object lb_trajeto: TLabel
     Left = 80
     Top = 48
     Width = 33
     Height = 13
     Caption = 'Trajeto'
   end
-  object TLabel
+  object lb_motorista: TLabel
     Left = 8
     Top = 96
     Width = 43
     Height = 13
     Caption = 'Motorista'
   end
-  object Label3: TLabel
+  object lb_empresa: TLabel
     Left = 208
     Top = 96
     Width = 41

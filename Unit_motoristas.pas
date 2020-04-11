@@ -1,3 +1,56 @@
+{$A8,B-,C+,D+,E-,F-,G+,H+,I+,J-,K-,L+,M-,N+,O+,P+,Q-,R-,S-,T-,U-,V+,W-,X+,Y+,Z1}
+{$MINSTACKSIZE $00004000}
+{$MAXSTACKSIZE $00100000}
+{$IMAGEBASE $00400000}
+{$APPTYPE GUI}
+{$WARN SYMBOL_DEPRECATED ON}
+{$WARN SYMBOL_LIBRARY ON}
+{$WARN SYMBOL_PLATFORM ON}
+{$WARN UNIT_LIBRARY ON}
+{$WARN UNIT_PLATFORM ON}
+{$WARN UNIT_DEPRECATED ON}
+{$WARN HRESULT_COMPAT ON}
+{$WARN HIDING_MEMBER ON}
+{$WARN HIDDEN_VIRTUAL ON}
+{$WARN GARBAGE ON}
+{$WARN BOUNDS_ERROR ON}
+{$WARN ZERO_NIL_COMPAT ON}
+{$WARN STRING_CONST_TRUNCED ON}
+{$WARN FOR_LOOP_VAR_VARPAR ON}
+{$WARN TYPED_CONST_VARPAR ON}
+{$WARN ASG_TO_TYPED_CONST ON}
+{$WARN CASE_LABEL_RANGE ON}
+{$WARN FOR_VARIABLE ON}
+{$WARN CONSTRUCTING_ABSTRACT ON}
+{$WARN COMPARISON_FALSE ON}
+{$WARN COMPARISON_TRUE ON}
+{$WARN COMPARING_SIGNED_UNSIGNED ON}
+{$WARN COMBINING_SIGNED_UNSIGNED ON}
+{$WARN UNSUPPORTED_CONSTRUCT ON}
+{$WARN FILE_OPEN ON}
+{$WARN FILE_OPEN_UNITSRC ON}
+{$WARN BAD_GLOBAL_SYMBOL ON}
+{$WARN DUPLICATE_CTOR_DTOR ON}
+{$WARN INVALID_DIRECTIVE ON}
+{$WARN PACKAGE_NO_LINK ON}
+{$WARN PACKAGED_THREADVAR ON}
+{$WARN IMPLICIT_IMPORT ON}
+{$WARN HPPEMIT_IGNORED ON}
+{$WARN NO_RETVAL ON}
+{$WARN USE_BEFORE_DEF ON}
+{$WARN FOR_LOOP_VAR_UNDEF ON}
+{$WARN UNIT_NAME_MISMATCH ON}
+{$WARN NO_CFG_FILE_FOUND ON}
+{$WARN MESSAGE_DIRECTIVE ON}
+{$WARN IMPLICIT_VARIANTS ON}
+{$WARN UNICODE_TO_LOCALE ON}
+{$WARN LOCALE_TO_UNICODE ON}
+{$WARN IMAGEBASE_MULTIPLE ON}
+{$WARN SUSPICIOUS_TYPECAST ON}
+{$WARN PRIVATE_PROPACCESSOR ON}
+{$WARN UNSAFE_TYPE OFF}
+{$WARN UNSAFE_CODE OFF}
+{$WARN UNSAFE_CAST OFF}
 unit Unit_motoristas;
 
 interface
@@ -17,11 +70,11 @@ type
     edit_idade: TEdit;
     edit_sexo: TEdit;
     edit_salario: TEdit;
-    Label1: TLabel;
-    Label2: TLabel;
-    Label3: TLabel;
-    Label4: TLabel;
-    Label5: TLabel;
+    lb_numero: TLabel;
+    lb_nome: TLabel;
+    lb_idade: TLabel;
+    lb_sexo: TLabel;
+    lb_salario: TLabel;
     dbgrid_motoristas: TDBGrid;
     btn_inserir: TSpeedButton;
     btn_editar: TSpeedButton;
@@ -46,6 +99,7 @@ type
 var
   Form_motoristas: TForm_motoristas;
   NumeroMotorista: String;
+  OcorreuErro : Boolean;
 
 implementation
 
@@ -105,17 +159,40 @@ begin
         edit_numero.Text + ',' + QuotedStr(edit_nome.Text) + ',' +
         edit_idade.Text + ',' + QuotedStr(edit_sexo.Text) + ',' +
         edit_salario.Text + ')';
-      adoquery_auxiliar.ExecSQL;
-      Form_menu.ConexaoBD.CommitTrans;
-      adoquery_motoristas.Close;
-      adoquery_motoristas.Open;
-      Showmessage('O novo motorista foi inserido com sucesso!');
-      edit_numero.Clear;
-      edit_nome.Clear;
-      edit_idade.Clear;
-      edit_sexo.Clear;
-      edit_salario.Clear;
+      try
+        adoquery_auxiliar.ExecSQL;
+        OcorreuErro := false;
+      except
+        on E : Exception do
+        begin
+          OcorreuErro := true;
+          if (Form_menu.ErroBancoDeDados(E.Message, 'PK__Motor') = 'Sim') then
+            begin
+              Application.MessageBox('O código inserido já foi cadastrado, insira um novo.', 'Aviso', mb_iconexclamation + mb_ok);
+            end
+          else
+            begin
+              Application.MessageBox(PAnsiChar('Sentimos muito! Ocorreu o seguinte erro: ' + E.Message), 'Aviso', mb_iconexclamation + mb_ok);
+            end
+        end;
     end;
+        if (OcorreuErro = false) then
+          begin
+            Form_menu.ConexaoBD.CommitTrans;
+            adoquery_motoristas.Close;
+            adoquery_motoristas.Open;
+            Application.MessageBox('O novo motorista foi inserido com sucesso!', 'Aviso', mb_iconinformation + mb_ok);
+            edit_numero.Clear;
+            edit_nome.Clear;
+            edit_idade.Clear;
+            edit_sexo.Clear;
+            edit_salario.Clear;
+          end
+        else
+          begin
+            Form_menu.ConexaoBD.RollbackTrans;
+          end;
+        end;
 end;
 
 procedure TForm_motoristas.btn_editarClick(Sender: TObject);
@@ -186,21 +263,48 @@ begin
                                             'sexo = ' + QuotedStr(edit_sexo.Text) + ', ' +
                                             'salario = ' + edit_salario.Text + ' ' +
                                     ' where num_motorista = ' + NumeroMotorista;
-      adoquery_auxiliar.ExecSQL;
-      Form_menu.ConexaoBD.CommitTrans;
-      adoquery_motoristas.Close;
-      adoquery_motoristas.Open;
-      Application.MessageBox('Suas alterações foram salvas com sucesso!', 'Aviso', mb_iconinformation + mb_ok);
-      edit_numero.Clear;
-      edit_nome.Clear;
-      edit_idade.Clear;
-      edit_sexo.Clear;
-      edit_salario.Clear;
-      btn_salvar_alteracoes.Visible := False;
-      btn_cancelar.Visible := False;
-      btn_inserir.Visible := True;
-      btn_editar.Visible := True;
-    end;
+      try
+        adoquery_auxiliar.ExecSQL;
+        OcorreuErro := False;
+      except
+        on E : Exception do
+        begin
+          OcorreuErro := True;
+          if (Form_menu.ErroBancoDeDados(E.Message, 'FK_Onibus_Motoristas')) = 'Sim' then
+            begin
+              Application.MessageBox('Não foi possível alterar o código pois existem ônibus ligados ao código deste motorista.', 'Aviso', mb_iconexclamation + mb_ok);
+            end
+          else if (Form_menu.ErroBancoDeDados(E.Message, 'PK__Moto')) = 'Sim' then
+            begin
+              Application.MessageBox('O código inserido já foi cadastrado, insira um novo.', 'Aviso', mb_iconexclamation + mb_ok);
+            end
+          else
+            begin
+              Application.MessageBox(PAnsiChar('Sentimos muito! Ocorreu o seguinte erro: ' + E.Message), 'Aviso', MB_ICONERROR + mb_ok);
+            end
+          end
+        end;
+          if (OcorreuErro = False) then
+            begin
+              Form_menu.ConexaoBD.CommitTrans;
+              adoquery_motoristas.Close;
+              adoquery_motoristas.Open;
+              Application.MessageBox('Suas alterações foram salvas com sucesso!', 'Aviso', mb_iconinformation + mb_ok);
+              edit_numero.Clear;
+              edit_nome.Clear;
+              edit_idade.Clear;
+              edit_sexo.Clear;
+              edit_salario.Clear;
+              btn_salvar_alteracoes.Visible := False;
+              btn_cancelar.Visible := False;
+              btn_inserir.Visible := True;
+              btn_editar.Visible := True;
+            end
+          else
+            begin
+              Form_menu.ConexaoBD.RollbackTrans;
+            end
+          end;
 end;
 
 procedure TForm_motoristas.edit_sexoChange(Sender: TObject);
@@ -223,17 +327,39 @@ begin
       adoquery_auxiliar.SQL.Text := 'delete ' +
                                       'from motoristas ' +
                                      'where num_motorista = ' + NumeroMotorista;
-      adoquery_auxiliar.ExecSQL;
-      Form_menu.ConexaoBD.CommitTrans;
-      adoquery_motoristas.Close;
-      adoquery_motoristas.Open;
-      Application.MessageBox('Exclusão realizada com sucesso!', 'Aviso', mb_iconinformation + mb_ok);
-      edit_numero.Clear;
-      edit_nome.Clear;
-      edit_idade.Clear;
-      edit_sexo.Clear;
-      edit_salario.Clear;
-    end;
+      try
+        adoquery_auxiliar.ExecSQL;
+        OcorreuErro := False;
+      except
+        on E: Exception do
+        begin
+          OcorreuErro := True;
+          if (Form_menu.ErroBancoDeDados(E.Message, 'FK_Onibus_Motoristas')) = 'Sim' then
+            begin
+              Application.MessageBox('Não foi possível excluir esse registro pois existem ônibus ligados ao código deste motorista.', 'Aviso', mb_iconexclamation + mb_ok);
+            end
+          else
+            begin
+              Application.MessageBox(PAnsiChar('Sentimos muito! Ocorreu o seguinte erro: ' + E.Message), 'Aviso', mb_iconerror + mb_ok);
+            end
+          end
+        end;
+      if (OcorreuErro = False) then
+        begin
+          Form_menu.ConexaoBD.CommitTrans;
+          adoquery_motoristas.Close;
+          adoquery_motoristas.Open;
+          Application.MessageBox('Exclusão realizada com sucesso!', 'Aviso', mb_iconinformation + mb_ok);
+          edit_numero.Clear;
+          edit_nome.Clear;
+          edit_idade.Clear;
+          edit_sexo.Clear;
+          edit_salario.Clear;
+        end
+      else
+        begin
+          Form_menu.ConexaoBD.RollbackTrans;
+        end
+      end
 end;
-
 end.

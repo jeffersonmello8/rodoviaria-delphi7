@@ -13,11 +13,11 @@ type
     adoquery_onibus: TADOQuery;
     btn_fechar: TSpeedButton;
     edit_numero: TEdit;
-    Label1: TLabel;
-    Label2: TLabel;
+    lb_numero: TLabel;
+    lb_trajeto: TLabel;
     edit_trajeto: TEdit;
     combobox_motorista: TComboBox;
-    Label3: TLabel;
+    lb_empresa: TLabel;
     combobox_empresa: TComboBox;
     adoquery_auxiliar: TADOQuery;
     btn_inserir: TSpeedButton;
@@ -25,6 +25,7 @@ type
     btn_salvar_alteracoes: TSpeedButton;
     btn_cancelar: TSpeedButton;
     btn_excluir: TSpeedButton;
+    lb_motorista: TLabel;
     procedure FormShow(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure btn_fecharClick(Sender: TObject);

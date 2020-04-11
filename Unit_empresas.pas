@@ -14,8 +14,8 @@ type
     btn_fechar: TSpeedButton;
     edit_codigo: TEdit;
     edit_nome: TEdit;
-    Label1: TLabel;
-    Label2: TLabel;
+    lb_codigo: TLabel;
+    lb_nome: TLabel;
     adoquery_auxiliar: TADOQuery;
     btn_inserir: TSpeedButton;
     btn_editar: TSpeedButton;
@@ -89,15 +89,15 @@ begin
         on E : Exception do
         begin
           OcorreuErro := True;
-        if (Form_menu.ErroBancoDeDados(E.Message, 'PK_Empresas') = 'Sim') then
-          begin
-            Application.MessageBox('O código inserido já foi cadastrado, insira um novo.', 'Aviso', mb_iconexclamation + mb_ok);
-          end
-        else
-          begin
-            Application.MessageBox(PAnsiChar('Sentimos muito! Ocorreu o seguinte erro:' + E.Message), 'Aviso', mb_iconexclamation + mb_ok);
-          end
-      end;
+          if (Form_menu.ErroBancoDeDados(E.Message, 'PK_Empresas') = 'Sim') then
+            begin
+              Application.MessageBox('O código inserido já foi cadastrado, insira um novo.', 'Aviso', mb_iconexclamation + mb_ok);
+            end
+          else
+            begin
+              Application.MessageBox(PAnsiChar('Sentimos muito! Ocorreu o seguinte erro: ' + E.Message), 'Aviso', mb_iconexclamation + mb_ok);
+            end
+        end;
     end;
     if (OcorreuErro = False) then
       begin
@@ -163,7 +163,7 @@ begin
             end
           else
             begin
-              Application.MessageBox(PAnsiChar('Sentimos muito! Ocorreu o seguinte erro:' + E.Message), 'Aviso', mb_iconexclamation + mb_ok);
+              Application.MessageBox(PAnsiChar('Sentimos muito! Ocorreu o seguinte erro: ' + E.Message), 'Aviso', mb_iconexclamation + mb_ok);
             end
         end;
     end;
@@ -220,7 +220,7 @@ begin
         end
       else
         begin
-          Application.MessageBox(PAnsiChar('Sentimos muito! Ocorreu o seguinte erro:' + E.Message), 'Aviso', mb_iconexclamation + mb_ok);
+          Application.MessageBox(PAnsiChar('Sentimos muito! Ocorreu o seguinte erro: ' + E.Message), 'Aviso', mb_iconexclamation + mb_ok);
         end
     end
 end;

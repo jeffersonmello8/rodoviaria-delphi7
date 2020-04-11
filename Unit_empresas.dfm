@@ -65,14 +65,14 @@ object Form_empresas: TForm_empresas
       FFFFFFFFFFFFFFFFFFFF}
     OnClick = btn_fecharClick
   end
-  object Label1: TLabel
+  object lb_codigo: TLabel
     Left = 16
     Top = 48
     Width = 33
     Height = 13
     Caption = 'C'#243'digo'
   end
-  object Label2: TLabel
+  object lb_nome: TLabel
     Left = 88
     Top = 48
     Width = 28

@@ -1,6 +1,6 @@
 object Form_motoristas: TForm_motoristas
-  Left = 197
-  Top = 196
+  Left = 585
+  Top = 207
   Width = 557
   Height = 481
   BorderIcons = [biSystemMenu]
@@ -65,35 +65,35 @@ object Form_motoristas: TForm_motoristas
       FFFFFFFFFFFFFFFFFFFF}
     OnClick = btn_fecharClick
   end
-  object Label1: TLabel
+  object lb_numero: TLabel
     Left = 16
     Top = 48
     Width = 37
     Height = 13
     Caption = 'N'#250'mero'
   end
-  object Label2: TLabel
+  object lb_nome: TLabel
     Left = 104
     Top = 48
     Width = 28
     Height = 13
     Caption = 'Nome'
   end
-  object Label3: TLabel
+  object lb_idade: TLabel
     Left = 16
     Top = 88
     Width = 27
     Height = 13
     Caption = 'Idade'
   end
-  object Label4: TLabel
+  object lb_sexo: TLabel
     Left = 104
     Top = 88
     Width = 24
     Height = 13
     Caption = 'Sexo'
   end
-  object Label5: TLabel
+  object lb_salario: TLabel
     Left = 152
     Top = 88
     Width = 32
